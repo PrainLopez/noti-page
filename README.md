@@ -1,5 +1,5 @@
-# Vue 3 + TypeScript + Vite
+# Noti-page
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+This is a web frontend client for [noticount](https://github.com/PrainLopez/noticount)
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+This project is kick-started by [bolt.new](https://bolt.new/)
