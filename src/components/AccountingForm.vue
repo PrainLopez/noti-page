@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import Button from "./ui/button.vue";
-import Input from "./ui/input.vue";
 import { API_ENDPOINTS, BEARER_TOKEN } from "@/config/api";
-import Card from "./ui/card/Card.vue";
 
 const amount = ref<number>(0);
 const remark = ref<string>("");
@@ -24,10 +21,14 @@ async function submitForm() {
   });
 
   if (response.ok) {
-    alert("Transaction recorded successfully!");
-    // Reset form
-    amount.value = 0;
-    remark.value = "";
+    switch (response.status) {
+      case 200:
+        console.log("Success: Transaction created!");
+        break;
+      default:
+        console.error("Error: Unexpected response status");
+        break;
+    }
   } else {
     console.error("Error: Request fail!");
     alert("Failed to submit transaction");
@@ -36,54 +37,54 @@ async function submitForm() {
 </script>
 
 <template>
-  <Card class="w-full max-w-4xl mx-auto">
-    <div class="p-4 sm:p-6">
+  <div class="card border w-full max-w-4xl mx-auto shadow-md">
+    <div class="card-body p-4 sm:p-6">
       <h2
         class="text-xl sm:text-2xl font-semibold leading-none tracking-tight mb-4"
       >
         Accounting Entry
       </h2>
-      <form @submit.prevent="submitForm">
-        <div class="flex flex-col sm:flex-row gap-4 sm:items-end">
-          <div class="flex-1">
-            <label
-              for="amount"
-              class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mb-2 block"
-            >
-              Amount *
-            </label>
+      <div class="flex flex-col sm:flex-row gap-4 sm:items-end">
+        <div class="flex-1">
+          <label class="form-control w-full">
+            <div class="label">
+              <span class="label-text">Amount</span>
+              <span class="label-text-alt text-red-400">(required)</span>
+            </div>
             <Input
               id="amount"
               type="number"
               v-model="amount"
               required
               step="0.01"
+              min="0"
               placeholder="Enter amount"
+              class="input input-bordered w-full"
             />
-          </div>
-
-          <div class="flex-1">
-            <label
-              for="remark"
-              class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mb-2 block"
-            >
-              Remark
-            </label>
-            <Input
-              id="remark"
-              type="text"
-              v-model="remark"
-              placeholder="Enter remark (optional)"
-            />
-          </div>
-
-          <div class="w-full sm:w-auto">
-            <Button type="submit" class="w-full sm:w-auto">
-              Submit Transaction
-            </Button>
-          </div>
+          </label>
         </div>
-      </form>
+        <div class="flex-1">
+          <label class="form-control w-full">
+            <div class="label">
+              <span class="label-text">Remark</span>
+            </div>
+            <Input
+              id="amount"
+              type="text"
+              v-model="amount"
+              placeholder="Enter remark (optional)"
+              class="input input-bordered w-full"
+            />
+          </label>
+        </div>
+
+        <div class="w-full sm:w-auto">
+          <Toaster />
+          <button class="btn btn-primary w-full sm:w-auto">
+            Submit Transaction
+          </button>
+        </div>
+      </div>
     </div>
-  </Card>
+  </div>
 </template>
