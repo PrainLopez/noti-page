@@ -11,7 +11,7 @@ const error = ref<string | null>(null);
 const fetchRecords = async () => {
   try {
     isLoading.value = true;
-    const response = await fetch(API_ENDPOINTS.records);
+    const response = await fetch(API_ENDPOINTS.monthlyRecords.uri);
     if (!response.ok) throw new Error("Failed to fetch records");
     records.value = await response.json();
   } catch (err) {
