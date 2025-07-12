@@ -1,6 +1,38 @@
 @import "tailwindcss";
 
-@theme {
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+@import "@webtui/css/base.css";
+
+/* Utils */
+@import "@webtui/css/utils/box.css";
+
+/* Components */
+@import "@webtui/css/components/typography.css";
+
+@layer base, utils, components;
+
+@layer base {
+  :root {
+    /* Default background color */
+    --background0: #0f172a;
+    --background1: #1e293b;
+    --background2: #334155;
+    --background3: #475569;
+
+    /* Default foreground color */
+    --foreground0: #cbd5e1;
+    --foreground1: #9ca3af;
+    --foreground2: #6b7280;
+
+    /* Border colors for various components/utils */
+    --box-border-color: var(--foreground0);
+    --table-border-color: var(--foreground0);
+    --separator-color: var(--foreground0);
+
+    --font-family: "JetBrains Mono", monospace;
+  }
+}
+
+h1 {
+  font-family: "Space Mono";
+  font-weight: 400;
 }
