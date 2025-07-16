@@ -1,27 +1,33 @@
-@import "tailwindcss";
-
 @import "@webtui/css/base.css";
-
 /* Utils */
 @import "@webtui/css/utils/box.css";
-
 /* Components */
 @import "@webtui/css/components/typography.css";
+
+:root {
+  --primary0: #ff3399;
+  --primary1: #ff0080;
+  --primary2: #ff0065;
+
+  --secondary0: #00cecb;
+  --secondary1: #00c2bc;
+  --secondary2: #00b4ac;
+}
 
 @layer base, utils, components;
 
 @layer base {
   :root {
     /* Default background color */
-    --background0: #0f172a;
-    --background1: #1e293b;
-    --background2: #334155;
-    --background3: #475569;
+    --background0: #0f172a; /* slate-900 */
+    --background1: #1e293b; /* slate-800 */
+    --background2: #334155; /* slate-700 */
+    --background3: #475569; /* slate-600 */
 
     /* Default foreground color */
-    --foreground0: #cbd5e1;
-    --foreground1: #9ca3af;
-    --foreground2: #6b7280;
+    --foreground0: #cbd5e1; /* slate-300 */
+    --foreground1: #9ca3af; /* slate-400 */
+    --foreground2: #6b7280; /* slate-500 */
 
     /* Border colors for various components/utils */
     --box-border-color: var(--foreground0);
@@ -31,6 +37,8 @@
     --font-family: "JetBrains Mono", monospace;
   }
 }
+
+@import "tailwindcss";
 
 h1 {
   font-family: "Space Mono";

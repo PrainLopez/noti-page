@@ -23,16 +23,19 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`bg-slate-900 ${JBMono.variable} ${SpaceMono.variable}`}>
+    <html lang="en" className={`bg-(--background0) ${JBMono.variable} ${SpaceMono.variable}`}>
       <body>
-        <header className="w-full h-screen flex flex-col">
+        <header className="w-full flex flex-col">
           <div className="flex flex-col" box-="round" shear-="top">
             <div className="header flex px-[1ch]">
-              <h1 className="text-amber-300 bg-slate-900">Noti Page</h1>
+              <h1 className="text-(--primary1) bg-(--background0)">Noti Page</h1>
             </div>
-            <span className="px-[1ch] py-[1lh] flex flex-row justify-between">
-              
+            <span className="px-[1ch] py-0 sm:py-[1lh] flex flex-col sm:flex-row place-items-start gap-0 sm:gap-[1ch]">
               <h1>Accounting</h1>
+              <h1 className="hidden sm:block">|</h1>
+              <h1>Daily Affairs</h1>
+              <h1 className="hidden sm:block">|</h1>
+              <h1>Profile</h1>
             </span>
           </div>
         </header>
