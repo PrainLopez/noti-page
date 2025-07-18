@@ -1,7 +1,7 @@
 import "~/styles/globals.css";
 
 import { type Metadata } from "next";
-import { JetBrains_Mono, Space_Mono } from "next/font/google";
+import localFont from "next/font/local";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -9,21 +9,88 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-const JBMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-family",
+const Cascadia_Mono = localFont({
+  variable: "--cascadia-mono",
+  src: [
+    {
+      path: "../fonts/CascadiaMono/CascadiaMonoNF.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../fonts/CascadiaMono/CascadiaMonoNFItalic.woff2",
+      weight: "400",
+      style: "italic",
+    }
+  ]
 })
-const SpaceMono = Space_Mono({
-  subsets: ["latin"],
+
+const JB_Mono = localFont({
+  variable: "--jb-mono",
+  src: [
+    {
+      path: "../fonts/JetBrainsMono/JetBrainsMono-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../fonts/JetBrainsMono/JetBrainsMono-Italic.woff2",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../fonts/JetBrainsMono/JetBrainsMono-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../fonts/JetBrainsMono/JetBrainsMono-BoldItalic.woff2",
+      weight: "700",
+      style: "italic",
+    },
+    {
+      path: "../fonts/JetBrainsMono/JetBrainsMono-Light.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../fonts/JetBrainsMono/JetBrainsMono-LightItalic.woff2",
+      weight: "300",
+      style: "italic",
+    }
+  ]
+})
+const Space_Mono = localFont({
   variable: "--space-mono",
-  weight: ["400", "700"],
-});
+  src: [
+    {
+      path: "../fonts/SpaceMono/SpaceMono-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../fonts/SpaceMono/SpaceMono-Italic.woff2",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../fonts/SpaceMono/SpaceMono-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../fonts/SpaceMono/SpaceMono-BoldItalic.woff2",
+      weight: "700",
+      style: "italic",
+    }
+  ]
+})
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`bg-(--background0) ${JBMono.variable} ${SpaceMono.variable}`}>
+    <html lang="en" className={`bg-(--background0) ${JB_Mono.variable} ${Space_Mono.variable} ${Cascadia_Mono.variable}`}>
       <body>
         <header className="w-full flex flex-col">
           <div className="flex flex-col" box-="round" shear-="top">
@@ -31,11 +98,11 @@ export default function RootLayout({
               <h1 className="text-(--primary1) bg-(--background0)">Noti Page</h1>
             </div>
             <span className="px-[1ch] py-0 sm:py-[1lh] flex flex-col sm:flex-row place-items-start gap-0 sm:gap-[1ch]">
-              <h1>Accounting</h1>
-              <h1 className="hidden sm:block">|</h1>
-              <h1>Daily Affairs</h1>
-              <h1 className="hidden sm:block">|</h1>
-              <h1>Profile</h1>
+              <span>Accounting</span>
+              <span className="hidden sm:block">|</span>
+              <span>Daily Affairs</span>
+              <span className="hidden sm:block">|</span>
+              <span>Profile</span>
             </span>
           </div>
         </header>

@@ -1,6 +1,8 @@
 "use client";
 import { useRef } from "react";
 import * as z from "zod/v4";
+import AccountingRow from "~/app/_components/accountingRow";
+import AccountingSummary from "~/app/_components/accountingSummary";
 
 const FormSubmitSchema = z.object({
   amount: z.number().nonnegative(),
@@ -21,12 +23,13 @@ export default function HomePage() {
         <main className="relative w-full flex flex-col">
           <div className="h-[2lh]" />
           <div className="absolute w-full" style={{ "--box-border-color": "var(--foreground1)" } as React.CSSProperties} box-="round">
-            <span className="px-[1ch] text-(--foreground1)">
-              Using currency: <span className="text-(--primary1)">￡</span>
+            <span className="px-[1ch] flex gap-[1ch]">
+              <input type="checkbox" name="specialExpense" />
+              Is this a special expense?
             </span>
           </div>
           <div className="z-10 bg-(--background0)" box-="round" shear-="bottom">
-            <div className="px-[1ch] py-0 sm:py-[1lh] flex flex-col sm:flex-row place-items-start gap-0 sm:gap-[1ch]">
+            <div className="px-[1ch] py-0 sm:py-[1lh] flex flex-col sm:flex-row place-items-start gap-0 sm:gap-[1ch] mb-[1lh] sm:mb-0">
               <div className="flex col-span-1 sm:flex-1/3 gap-[1ch] mb-[1lh] w-full sm:mb-0">
                 <input
                   type="number"
@@ -38,7 +41,7 @@ export default function HomePage() {
                   pattern="^\d+(\.\d{1,2})?$"
                   placeholder="0.00"
                 />
-                <select name="currency" className="bg-(--background3) flex-1/3">
+                <select name="currency" className="bg-(--background3) flex-1/3 px-[1ch]">
                   <option value="GBP">GBP</option>
                   <option value="CNY">CNY</option>
                   <option value="USD">USD</option>
@@ -51,18 +54,28 @@ export default function HomePage() {
                 type="text"
                 name="note"
                 className="bg-(--background3) w-full sm:flex-2/3"
-                placeholder="Spent for wut?"
+                placeholder="For wut? (50 chars max)"
+                maxLength={50}
               />
             </div>
             <div className="header flex px-[1ch]">
               <span>
-                <button type="submit" className="bg-(--primary0)">Submit</button>
+                <button
+                  type="submit"
+                  className="bg-(--primary0) text-(--text-primary)"
+                >
+                  <h1>Submit</h1>
+                </button>
               </span>
             </div>
           </div>
         </main>
       </form>
-      <section></section>
+      <AccountingSummary />
+      <section>
+        <AccountingRow />
+        <AccountingRow />
+      </section>
     </>
   );
 }

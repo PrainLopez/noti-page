@@ -3,6 +3,8 @@
 @import "@webtui/css/utils/box.css";
 /* Components */
 @import "@webtui/css/components/typography.css";
+@import "@webtui/css/components/input.css";
+@import "@webtui/css/components/checkbox.css";
 
 :root {
   --primary0: #ff3399;
@@ -12,6 +14,8 @@
   --secondary0: #00cecb;
   --secondary1: #00c2bc;
   --secondary2: #00b4ac;
+
+  --text-primary: #ffffff;
 }
 
 @layer base, utils, components;
@@ -34,15 +38,20 @@
     --table-border-color: var(--foreground0);
     --separator-color: var(--foreground0);
 
-    --font-family: "JetBrains Mono", monospace;
+    --font-family: var(--jb-mono), monospace;
+    --font-mono: var(--cascadia-mono), monospace;
   }
 }
 
 @import "tailwindcss";
 
 h1 {
-  font-family: "Space Mono";
-  font-weight: 400;
+  font-family: var(--space-mono);
+  font-weight: 700;
+}
+
+pre {
+  font-family: var(--font-mono);
 }
 
 /* Hide the spin buttons in number inputs */
