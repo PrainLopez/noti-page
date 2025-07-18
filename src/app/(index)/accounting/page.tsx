@@ -1,4 +1,5 @@
 "use client";
+import { between } from "drizzle-orm";
 import { useRef } from "react";
 import * as z from "zod/v4";
 import AccountingRow from "~/app/_components/accountingRow";
@@ -58,13 +59,14 @@ export default function HomePage() {
                 maxLength={50}
               />
             </div>
-            <div className="header flex px-[1ch]">
+            <div style={{ justifyContent: "space-between" }} className="header flex px-[1ch]">
+              <span></span>
               <span>
                 <button
                   type="submit"
                   className="bg-(--primary0) text-(--text-primary)"
                 >
-                  <h1>Submit</h1>
+                  <h2>Submit</h2>
                 </button>
               </span>
             </div>
@@ -73,8 +75,6 @@ export default function HomePage() {
       </form>
       <AccountingSummary />
       <section>
-        <AccountingRow />
-        <AccountingRow />
       </section>
     </>
   );

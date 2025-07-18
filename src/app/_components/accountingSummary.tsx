@@ -1,32 +1,19 @@
 import ProgressBar from "./progressBar";
+import LineChart from "./lineChart";
+import * as z from "zod/v4";
 
-const dummyDataRecords = [
-  {
-    time: new Date(1752791701839),
-    amount: 5.29,
-    currency: "GBP",
-    note: "Lidl"
-  },
-  {
-    time: new Date(1752751704953),
-    amount: 3,
-    currency: "GBP",
-    note: "Tesco"
-  },
-  {
-    time: new Date(1752691708495),
-    amount: 13.99,
-    currency: "GBP",
-    note: "Fried Chicken"
-  },
-  {
-    time: new Date(1752591701542),
-    amount: 3.59,
-    currency: "GBP",
-    note: "Greggs"
-  }
-]
-const dummyDataDay = {
+const RecentDaysSchema = z.object({
+  date: z.iso.date(),
+  total: z.number().nonnegative()
+})
+type RecentDays = z.infer<typeof RecentDaysSchema>;
+const RecentDataSchema = z.object({
+  last5Days: z.array(RecentDaysSchema),
+  dayAllowance: z.number().nonnegative()
+})
+type RecentData = z.infer<typeof RecentDataSchema>;
+
+const dummyDataDay: RecentData = {
   last5Days: [
     { date: "2025-07-18", total: 8.29 },
     { date: "2025-07-17", total: 13.99 },
@@ -42,14 +29,19 @@ const dummyDataMonth = {
   monthAllowance: 620.00,
 }
 
+
 export default function AccountingRow() {
+
+  const recentAverage: (last5Days: Array<RecentDays>) => string =
+    (last5Days) => (last5Days.reduce((acc, day) => acc + day.total, 0) / last5Days.length).toFixed(2);
+
   return (
     <section className="relative w-full flex flex-col">
       <div className="" box-="round" shear-="top">
-        <div className="header px-[1ch]">
-          <span className="bg-(--background0)">Summary</span>
+        <div className="header px-[1ch] flex">
+          <h1 className="bg-(--background0) text-(--secondary0)">Summary</h1>
         </div>
-        <span className="px-[1ch] grid grid-cols-10 gap-[1ch]">
+        <span className="px-[1ch] grid grid-cols-10 sm:gap-[1ch]">
           <span className="col-span-2">Today:</span>
           <span className="col-span-2">
             {`${dummyDataDay.last5Days[0]?.total}/${dummyDataDay.dayAllowance}`}
@@ -57,16 +49,16 @@ export default function AccountingRow() {
           <span className="col-span-6">
             <ProgressBar
               progress={Math.min((dummyDataDay.last5Days[0]?.total ?? 0) / dummyDataDay.dayAllowance, 1)}
-              length={37}
+              length={19}
             />
           </span>
         </span>
-        <span className="px-[1ch] grid grid-cols-10 gap-[1ch]">
-          <span className="col-span-2">Recent:</span>
-          <span className="col-span-3">
-            {`${dummyDataMonth.monthTotal}/${dummyDataMonth.monthAllowance}`}
+        <span className="px-[1ch] grid grid-cols-10 sm:gap-[1ch]">
+          <span className="col-span-5">Recent day Avg:</span>
+          <span className="col-span-2">
+            {`${recentAverage(dummyDataDay.last5Days)}`}
           </span>
-          <span className="col-span-5"></span>
+          <span className="col-span-3"><LineChart data={dummyDataDay.last5Days} /></span>
         </span>
       </div>
     </section>

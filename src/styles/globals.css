@@ -50,6 +50,11 @@ h1 {
   font-weight: 700;
 }
 
+h2 {
+  font-family: var(--space-mono);
+  font-weight: 400;
+}
+
 pre {
   font-family: var(--font-mono);
 }
