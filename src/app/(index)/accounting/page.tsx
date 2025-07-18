@@ -68,7 +68,7 @@ export default function HomePage() {
           <div className="absolute w-full" style={{ "--box-border-color": "var(--foreground1)" } as React.CSSProperties} box-="round">
             <span className="px-[1ch] flex gap-[1ch]">
               <input type="checkbox" name="specialExpense" />
-              Is this a special expense?
+              Hi! You can record your expenses here. (This is a demo page, so no data will be saved.)
             </span>
           </div>
           <div className="z-10 bg-(--background0)" box-="round" shear-="bottom">
@@ -77,14 +77,14 @@ export default function HomePage() {
                 <input
                   type="number"
                   name="amount"
-                  className="bg-(--background3) flex-2/3"
+                  className="bg-(--background3) flex-2/3 h-[1lh]"
                   min={0}
                   step={0.1}
                   inputMode="decimal"
                   pattern="^\d+(\.\d{1,2})?$"
                   placeholder="0.00"
                 />
-                <select name="currency" className="bg-(--background3) flex-1/3 px-[1ch]">
+                <select name="currency" className="bg-(--background3) flex-1/3 px-[1ch] h-[1lh]">
                   <option value="GBP">GBP</option>
                   <option value="CNY">CNY</option>
                   <option value="USD">USD</option>
@@ -96,7 +96,7 @@ export default function HomePage() {
               <input
                 type="text"
                 name="note"
-                className="bg-(--background3) w-full sm:flex-2/3"
+                className="bg-(--background3) w-full sm:flex-2/ h-[1lh]"
                 placeholder="For wut? (50 chars max)"
                 maxLength={50}
               />
