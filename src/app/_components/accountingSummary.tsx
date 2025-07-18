@@ -29,7 +29,6 @@ const dummyDataMonth = {
   monthAllowance: 620.00,
 }
 
-
 export default function AccountingRow() {
 
   const recentAverage: (last5Days: Array<RecentDays>) => string =
@@ -49,7 +48,7 @@ export default function AccountingRow() {
           <span className="col-span-6">
             <ProgressBar
               progress={Math.min((dummyDataDay.last5Days[0]?.total ?? 0) / dummyDataDay.dayAllowance, 1)}
-              length={19}
+              length={25}
             />
           </span>
         </span>
@@ -59,6 +58,24 @@ export default function AccountingRow() {
             {`${recentAverage(dummyDataDay.last5Days)}`}
           </span>
           <span className="col-span-3"><LineChart data={dummyDataDay.last5Days} /></span>
+        </span>
+        <span className="px-[1ch] grid grid-cols-10 sm:gap-[1ch]">
+          <span className="col-span-2">Month:</span>
+          <span className="col-span-2">
+            {`${dummyDataMonth.monthTotal}/${dummyDataMonth.monthAllowance}`}
+          </span>
+          <span className="col-span-6">
+            <ProgressBar
+              progress={Math.min((dummyDataMonth.monthTotal) / dummyDataMonth.monthAllowance, 1)}
+              length={25}
+            />
+          </span>
+        </span>
+        <span className="px-[1ch] grid grid-cols-10 sm:gap-[1ch]">
+          <span className="col-span-5">Last month balance:</span>
+          <span className="col-span-2">
+            {`${dummyDataMonth.lastMoBalance}`}
+          </span>
         </span>
       </div>
     </section>

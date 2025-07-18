@@ -11,11 +11,53 @@ const FormSubmitSchema = z.object({
   note: z.string().trim().max(50)
 })
 
+const RecordVoSchema = z.object({
+  time: z.date(),
+  amount: z.number().nonnegative(),
+  currency: z.enum(['GBP', 'USD', 'EUR', 'JPY', 'CNY']),
+  note: z.string().trim().max(50)
+})
+type RecordVo = z.infer<typeof RecordVoSchema>;
+
+const dummyDataRecords: Array<RecordVo> = [
+  {
+    time: new Date(1752791701839),
+    amount: 5.29,
+    currency: "GBP",
+    note: "Lidl"
+  },
+  {
+    time: new Date(1752751704953),
+    amount: 3,
+    currency: "GBP",
+    note: "Tesco"
+  },
+  {
+    time: new Date(1752691708495),
+    amount: 13.99,
+    currency: "GBP",
+    note: "Fried Chicken"
+  },
+  {
+    time: new Date(1752591701542),
+    amount: 3.59,
+    currency: "GBP",
+    note: "Greggs"
+  }
+]
+
 export default function HomePage() {
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const formData = new FormData(formRef.current!);
+    const data = Object.fromEntries(formData.entries());
+    const parsedData = FormSubmitSchema.safeParse(data);
+    if (!parsedData.success) {
+      alert("Form invalid!");
+      return;
+    }
   }
 
   return (
@@ -74,8 +116,21 @@ export default function HomePage() {
         </main>
       </form>
       <AccountingSummary />
-      <section>
-      </section>
+      <section className="relative w-full flex flex-col">
+        <div className="h-[2lh]" />
+        <div style={{ display: "absolute" }} className="absolute w-full" box-="round" shear-="top">
+          <div className="header flex p-[1ch]">
+            <h2 className="text-(--primary1) bg-(--background0)"> Recent Records</h2>
+          </div>
+        </div>
+        {dummyDataRecords.map((record, index) => (
+          <AccountingRow
+            key={index}
+            data={record}
+            className={`${index % 2 === 0 ? "bg-(--background1)" : "bg-(--background2)"}`}
+          />
+        ))}
+      </section >
     </>
   );
 }
